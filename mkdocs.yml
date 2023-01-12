@@ -1,0 +1,36 @@
+site_name: Notebook
+url: note.ymzymz.me
+
+theme:
+  name: "material"
+  language: "zh"
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Light mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: dark mode
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Computer Science:
+    - CS/index.md
+    - 编程语言:
+      - CS/PL/index.md
+      - OCaml: CS/PL/OCaml.md
+  
