@@ -1,5 +1,7 @@
 site_name: Notebook
-url: note.ymzymz.me
+site_url: https://note.ymzymz.me
+repo_name: silver-ymz/note
+repo_url: https://github.com/silver-ymz/note/
 
 theme:
   name: "material"
