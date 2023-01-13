@@ -1,7 +1,9 @@
 site_name: Notebook
 site_url: https://note.ymzymz.me
+site_description: Salvor's notbook
 repo_name: silver-ymz/note
 repo_url: https://github.com/silver-ymz/note/
+site_author: Salvor Hardin
 
 theme:
   name: "material"
