@@ -6,11 +6,16 @@ repo_url: https://github.com/silver-ymz/note/
 theme:
   name: "material"
   language: "zh"
+  icon:
+    repo: fontawesome/brands/github
   features:
     - navigation.tracking
     - navigation.tabs
     - navigation.indexes
     - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.action.view
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -27,6 +32,20 @@ theme:
 
 plugins:
   - search
+  - rss
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.js
+  - js/katex.js
 
 nav:
   - Home: index.md
