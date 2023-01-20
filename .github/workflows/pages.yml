@@ -1,0 +1,36 @@
+name: Build and Deploy to Cloudflare Pages
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    if: github.event.repository.fork == false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python runtime
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+          cache: 'pip'
+
+      - name: Install Python dependencies && Build
+        run: |
+          pip install -r requirements.txt
+          mkdocs build
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: 'note'
+          directory: 'site'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
