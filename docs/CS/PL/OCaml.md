@@ -168,6 +168,97 @@ concat ":";;  (* - : ?sep:string -> string -> string *)
 
 > 当可选参数位于末尾时, 由于无法擦除(即必须显式传递), 编译器会报Warning
 
+### 模块(Module)
+
+当项目较为复杂时, 可以将每个文件视为一个模块, 通过模块来组织代码.
+
+一个模块分为声明(.mli)与实现(.ml). 声明文件用于描述模块的接口, 实现文件用于实现模块的功能. 例如:
+```OCaml
+(* my_module.mli *)
+type t
+val map_find : t -> key -> value option
+```
+
+```OCaml
+(* my_module.ml *)
+type t = (key * value) list
+let map_find map key =
+  try Some (List.assoc key map)
+  with Not_found -> None
+```
+
+#### 模块签名(Signature)
+
+模块签名用于描述模块的接口, 如:
+```OCaml
+module type MapModule = sig
+  type t
+  val map_find : t -> key -> value option
+end
+```
+模块签名可以与模块实现进行匹配, `module <name> : <sign> = <impl>` 如:
+```OCaml
+module MyModule : MapModule = struct
+  type t = (key * value) list
+  let map_find map key =
+    try Some (List.assoc key map)
+    with Not_found -> None
+end
+```
+
+#### 模块展开(Open)
+
+模块展开用于将模块中的所有内容展开到当前作用域, 如:
+```OCaml
+module M = struct let foo = 3 end;;
+foo;;  (* Error: Unbound value foo *)
+open M;;
+foo;;  (* - : int = 3 *)
+```
+
+在实际开发中, 应尽量减少直接展开模块以避免命名冲突. 展开模块时, 也应选择设计为展开的模块, 如`Base`, `Base.Option.Monad_infix`, `Base.Float.O`
+
+##### 局部展开
+
+局部展开用于将模块暂时性展开到当前作用域, 以避免命名冲突, 如:
+```OCaml
+let average x y =
+  let open Int64 in
+  (x + y) / of_int 2;;
+```
+
+##### 模块别名
+
+若模块名过长, 可以使用模块别名以减少代码量, 如:
+```OCaml
+let average x y =
+  let module I64 = Int64 in
+  (x + y) / I64.of_int 2;;
+```
+
+#### 模块包含(Include)
+
+模块包含可以用于拓展已有模块的功能, 如:
+```OCaml
+module Interval = struct
+  type t = | Interval of int * int
+           | Empty
+
+  let create low high = 
+    if low > high then Empty
+    else Interval (low, high)
+end;;
+
+module ExtendedInterval = struct
+  include Interval
+
+  let contains t x =
+    match t with
+    | Empty -> false
+    | Interval (low, high) -> low <= x && x <= high
+end;;
+```
+
 
 ## 基本数据类型
 
