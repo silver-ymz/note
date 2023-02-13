@@ -1,6 +1,15 @@
 # OCaml
 
-> 注: 本文档学习时基于 OCaml 4.14.1, 标准库使用 [Base 0.15.1](https://ocaml.org/p/base/v0.15.1/doc/Base/index.html)
+学习时的阅读资料:
+
+  1. [Real World OCaml](https://dev.realworldocaml.org/)
+
+  2. [OCaml.org](https://ocaml.org/learn/tutorials/index.html)
+
+  3. [OCaml Reference Manual](https://v2.ocaml.org/manual/index.html)
+
+???+ info "OCaml版本信息"
+     本文档学习时基于 OCaml 4.14.1, 标准库使用 [Base 0.15.1](https://ocaml.org/p/base/v0.15.1/doc/Base/index.html)
 
 
 ## 基本语法
@@ -173,14 +182,12 @@ concat ":";;  (* - : ?sep:string -> string -> string *)
 当项目较为复杂时, 可以将每个文件视为一个模块, 通过模块来组织代码.
 
 一个模块分为声明(.mli)与实现(.ml). 声明文件用于描述模块的接口, 实现文件用于实现模块的功能. 例如:
-```OCaml
-(* my_module.mli *)
+```OCaml title="my_module.mli"
 type t
 val map_find : t -> key -> value option
 ```
 
-```OCaml
-(* my_module.ml *)
+```OCaml title="my_module.ml"
 type t = (key * value) list
 let map_find map key =
   try Some (List.assoc key map)
@@ -218,7 +225,7 @@ foo;;  (* - : int = 3 *)
 
 在实际开发中, 应尽量减少直接展开模块以避免命名冲突. 展开模块时, 也应选择设计为展开的模块, 如`Base`, `Base.Option.Monad_infix`, `Base.Float.O`
 
-##### 局部展开
+#### 局部展开
 
 局部展开用于将模块暂时性展开到当前作用域, 以避免命名冲突, 如:
 ```OCaml
@@ -227,7 +234,7 @@ let average x y =
   (x + y) / of_int 2;;
 ```
 
-##### 模块别名
+#### 模块别名
 
 若模块名过长, 可以使用模块别名以减少代码量, 如:
 ```OCaml

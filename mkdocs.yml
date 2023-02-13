@@ -18,6 +18,7 @@ theme:
     - search.suggest
     - search.highlight
     - content.action.view
+    - content.code.copy
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -38,8 +39,16 @@ plugins:
       enable_creation_date: true
 
 markdown_extensions:
+  - admonition
+  - pymdownx.details
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - toc:
+      toc_depth: 3
 
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css
