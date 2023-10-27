@@ -3,7 +3,7 @@ site_url: https://note.ymzymz.me
 site_description: Salvor's notbook
 repo_name: silver-ymz/note
 repo_url: https://github.com/silver-ymz/note/
-site_author: Salvor Hardin
+site_author: silver
 
 theme:
   name: "material"
